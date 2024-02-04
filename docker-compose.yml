@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+
+  myvsftpd:
+    container_name: myvsftpd
+    privileged: true
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        USER_ID: 1000
+        GROUP_ID: 1000
+    restart: always
+    volumes:
+      - ./home/vsftpd:/home/vsftpd
+      - ./logs:/var/log/vsftpd
+      - ./conf:/etc/vsftpd
+      # - ./pam.d:/etc/pam.d
+      - ./Chinese:/usr/share/fonts/Chinese
+    ports:
+      - 0.0.0.0:20:20
+      - 0.0.0.0:21:21
+      - 21100-21110:21100-21110
